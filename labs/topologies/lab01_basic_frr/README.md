@@ -61,14 +61,17 @@ make build
 make lab01
 ```
 
-> NOTE: On Linux, `make` uses root privileges to execute the following command which is required to clear operational configs if they exist:
+> [!NOTE]
+> On Linux, `make` uses root privileges to execute the following command which is required to clear operational configs if they exist:
 > ```bash
 > $(SUDO) find operational_configs -mindepth 1 -not -name '.gitkeep' -delete || true && \
 > ```
 
 **Step 3. Generate configuration for devices**
 
-`annet gen frr-r1.nh.com frr-r2.nh.com frr-r3.nh.com`
+```bash
+annet gen frr-r1.nh.com frr-r2.nh.com frr-r3.nh.com
+```
 
 <details>
 <summary>Output</summary>
@@ -161,7 +164,9 @@ line vty
 
 Look at diff:
 
-`annet diff frr-r1.nh.com frr-r2.nh.com frr-r3.nh.com`
+```bash
+annet diff frr-r1.nh.com frr-r2.nh.com frr-r3.nh.com
+```
 
 <details>
 <summary>Output</summary>
@@ -248,7 +253,9 @@ Look at diff:
 
 **Step 4. Deploy it**
 
-`annet deploy frr-r1.nh.com frr-r2.nh.com frr-r3.nh.com`
+```
+annet deploy frr-r1.nh.com frr-r2.nh.com frr-r3.nh.com
+```
 
 You can check the BGP Peers:
 - `ssh annet@172.20.0.111 "echo "show ip bgp summary" | sudo vtysh"`
@@ -265,7 +272,9 @@ Remove [connection](http://localhost:8000/dcim/devices/5/interfaces/) between `f
 
 Look at diff:
 
-`annet diff frr-r1.nh.com frr-r2.nh.com frr-r3.nh.com`
+```bash
+annet diff frr-r1.nh.com frr-r2.nh.com frr-r3.nh.com
+```
 
 <details>
 <summary>Output</summary>
@@ -316,7 +325,9 @@ Look at diff:
 
 **Deploy it:**
 
-`annet deploy frr-r1.nh.com frr-r2.nh.com`
+```bash
+annet deploy frr-r1.nh.com frr-r2.nh.com
+```
 
 You can check the BGP Peers:
 - `ssh annet@172.20.0.111 "echo "show ip bgp summary" | sudo vtysh"`
@@ -330,7 +341,9 @@ Restore [connection](http://localhost:8000/dcim/cables/add/?a_terminations_type=
 
 Look at diff:
 
-`annet diff frr-r1.nh.com frr-r2.nh.com frr-r3.nh.com`
+```bash
+annet diff frr-r1.nh.com frr-r2.nh.com frr-r3.nh.com
+```
 
 <details>
 <summary>Output</summary>
@@ -382,7 +395,9 @@ Look at diff:
 
 **Deploy it:**
 
-`annet deploy frr-r1.nh.com frr-r2.nh.com`
+```bash
+annet deploy frr-r1.nh.com frr-r2.nh.com
+```
 
 You can check the BGP Peers:
 - `ssh annet@172.20.0.111 "echo "show ip bgp summary" | sudo vtysh"`

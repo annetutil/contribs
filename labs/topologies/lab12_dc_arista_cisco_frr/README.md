@@ -61,7 +61,8 @@ make build
 
 **Step 2. Start the lab**
 
-> NOTE: Do not forget to put Cisco IOS image `c7200-jk9s-mz.124-13a.bin` into `../vm_images` directory and Arista image import.
+> [!NOTE]
+> Do not forget to put Cisco IOS image `c7200-jk9s-mz.124-13a.bin` into `../vm_images` directory and Arista image import.
 
 Start the lab:
 
@@ -69,7 +70,8 @@ Start the lab:
 make lab12
 ```
 
-> NOTE: On Linux, `make` uses root privileges to execute the following command, which is required to clear operational configs if they exist:
+> [!NOTE]
+> On Linux, `make` uses root privileges to execute the following command, which is required to clear operational configs if they exist:
 
 ```bash
 $(SUDO) find operational_configs -mindepth 1 -not -name '.gitkeep' -delete || true && \
@@ -81,7 +83,9 @@ After this step you will be automatically logged in to annet container as a root
 
 Generate configuration for spine-1-1, spine-1-2, tor-1-1, tor-1-2, tor-1-3:
 
-`annet gen spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com`
+```bash
+annet gen spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com
+```
 
 <details>
 <summary>Arista spine target configuration</summary>
@@ -324,7 +328,9 @@ line vty
 
 Look at diff:
 
-`annet diff spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com`
+```bash
+annet diff spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com
+```
 
 <details>
 <summary>Arista spine diff</summary>
@@ -578,7 +584,9 @@ Look at diff:
 
 Look at patch:
 
-`annet patch spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com`
+```bash
+annet patch spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com
+```
 
 <details>
 <summary>Arista spine patch</summary>
@@ -836,7 +844,9 @@ line vty
 
 Deploy it:
 
-`annet deploy spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com`
+```bash
+annet deploy spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com
+```
 
 **Step 4. Break a connection and check what happens**
 
@@ -844,7 +854,9 @@ Go to [Netbox](http://localhost:8000/), delete the connection between `tor-1-2.n
 
 Look at diff:
 
-`annet diff spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com`
+```bash
+annet diff spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com
+```
 
 <details>
 <summary>spine-1-1 diff</summary>
@@ -890,7 +902,9 @@ Look at diff:
 
 Look at patch:
 
-`annet patch spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com`
+```bash
+annet patch spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com
+```
 
 <details>
 <summary>spine-1-1 patch</summary>
@@ -982,7 +996,9 @@ line vty
 
 Deploy it:
 
-`annet deploy spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com`
+```bash
+annet deploy spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com
+```
 
 Restore the connection and repeat the actions.
 
@@ -992,7 +1008,9 @@ Go to [Netbox](http://localhost:8000/), assign spine-1-1.nh.com or spine-1-2.nh.
 
 Look at diff:
 
-`annet diff spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com`
+```bash
+annet diff spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com
+```
 
 <details>
 <summary>spine-1-1 diff</summary>
@@ -1024,7 +1042,9 @@ Look at diff:
 
 Look at patch:
 
-`annet patch spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com`
+```bash
+annet patch spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com
+```
 
 <details>
 <summary>spine-1-1 patch</summary>
@@ -1107,7 +1127,9 @@ line vty
 
 Deploy it:
 
-`annet deploy spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com`
+```bash
+annet deploy spine-1-1.nh.com spine-1-2.nh.com tor-1-1.nh.com tor-1-2.nh.com tor-1-3.nh.com
+```
 
 Remove the tag and repeat the actions.
 
