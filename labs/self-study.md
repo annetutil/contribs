@@ -1,14 +1,14 @@
-## Дополнительные задания
+## Additional tasks
 
 > [!NOTE]
-> За основу берём Lab10, 11 или 12.
+> Topology and configuration are based on Lab10, 11 or 12.
 
-### 1. Реализовать механику отключения BGP сессий на коммутаторах.
+### 1. Implement feature of disabling BGP sessions based on tags
 
-Модифицировать существующие генераторы таким образом, чтобы при назначении тега `damaged` на любое из устройств в топологии Annet административно выключала все настроенные на нем BGP-сессии.  
-*Тег `damaged` уже есть в Netbox.*
+Modify existing generators. If tag `damaged` is assigned to the device in Netbox Annet should administratively disable all BGP-sessions.  
 
-**Результат:**
+
+**Result:**
 ```diff
   router bgp 65111
     address-family ipv4
@@ -16,21 +16,24 @@
 +     neighbor 10.2.1.11 shutdown
 ```
 
-### 2. Проанонсировать статические маршруты с ToR
+### 2. Add static routes on ToR and announce it via BGP
 
-1. Создать генератор, прописывающий на всех ToR статические маршруты, направленные в `Null0`. Сеть определяется через **netbox device id** - `192.168.<netbox device id>.0/24`. **netbox device id** доступен в атрибуте `id` объекта класса `Device`.  
-	Новый генератор необходимо добавить в результат функции `get_generators()`, определяемой в файле `lab_generators/__init__.py`.
-2. Добавить в существующие генераторы создание route-map с именем `IMPORT_STATIC`, которая назначает всем маршрутам **bgp community** `65000:1`.
-3. Настроить в mesh для всех ToR редистрибуцию статических маршрутов с route-map `IMPORT_STATIC`. 
+1. Crate generator, which add static route on each ToR directed to `Null0`. Network is defined by **netbox device id** - `192.168.<netbox device id>.0/24`. **netbox device id** is attribute `id` of object `Device`.  
+  New generator has to be added to result of function `get_generators()`, defined in file `lab_generators/__init__.py`.
 
-Mesh описывает соединения между устройствами, BGP-пиринги (`peers`) и опции BGP (`global_options`).
-- `global_options` определяются в функции с декоратором `device`,
-- `peers` определяются в функции с декоратором `direct`. 
+2. Add route-map `IMPORT_STATIC` to the existing generators, which assign **bgp community** `65000:1` to all the routes
 
-Эти функции определены в модуле `mesh_view`. Параметры редистрибуции задаются в `global_options`.
+3. Add static routes redistribution via route-map `IMPORT_STATIC` to ToR's mesh
 
-**Результат:**
-``diff
+> [!NOTE]
+> Mesh defines point-to-point addresses on connected interfaces, BGP peerings (`peers`) и BGP options (`global_options`) based on device connections in Netbox.
+> - `global_options` is defined in function with decorator `device`,
+> - `peers` is defined in function with decorator `direct`.  
+> 
+> You can find this functions in `mesh_view`. Redistribution parameters are in `global_options`.
+
+**Result:**
+```diff
 # -------------------- tor-1-1.nh.com.cfg --------------------
 + ip route 192.168.7.0 255.255.255.0 Null0
 + route-map IMPORT_STATIC permit 10
